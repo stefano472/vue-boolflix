@@ -29,7 +29,6 @@
     },
     methods: {
       getInput() {
-        console.log(this.inputSearch),
         this.$emit('getUserInput', this.inputSearch),
         this.inputSearch = ''
       }
@@ -63,6 +62,8 @@
       justify-content: end;
       gap: 0.5rem;
       input {
+        border: none;
+        border-radius: 3px;
         padding: 0.2rem;
         width: 7rem;
       }

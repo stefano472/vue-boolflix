@@ -1,12 +1,25 @@
 <template>
   <main>
-    
+    <FilmCard v-for="film in filmArray" :key="film.id" 
+      :title="film.title"
+      :originalTitle="film.original_title" 
+      :vote="film.vote_average"
+      :language="film.original_language" 
+    />
   </main>
 </template>
 
 <script>
+import FilmCard from './FilmCard.vue'
+
 export default {
-    name: "MainComponent"
+    name: "MainComponent", 
+    components: {
+      FilmCard
+    },
+    props: {
+      filmArray: Array
+    }
 }
 </script>
 
@@ -20,5 +33,6 @@ export default {
     background-size: cover;
     background-blend-mode: darken;
     background-color: rgba($color: #000000, $alpha: 0.7);
+    padding-top: 5rem;
   }
 </style>
