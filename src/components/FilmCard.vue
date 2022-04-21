@@ -11,8 +11,17 @@
                 {{originalTitle}}
             </h4>
             <p>
-                <span v-if="vote>0">
-                    {{vote}}
+                <span>
+                    {{voteTo5(vote)}}
+                    <font-awesome-icon v-for="number in voteTo5(vote)" 
+                            :key="'fillStar:' + number"  
+                            icon="fa-solid fa-star" 
+                            class="fillStar" 
+                    />
+                    <font-awesome-icon v-for="number in (5 - voteTo5(vote))" 
+                            :key="'emptyStar:' + number" 
+                            icon="fa-regular fa-star" 
+                    />
                 </span>
                 <img :src="flagUrl(language)" :alt="'lang: ' + language"> 
             </p>
@@ -46,6 +55,9 @@ export default {
             // return require('@/assets/img_not_found.png')
             return this.notFound
         },
+        voteTo5(number) {
+            return Math.ceil(number / 2)
+        },
         flagUrl(countryCode) {
             if (countryCode === "en") {
                 return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/US.svg`
@@ -77,6 +89,10 @@ export default {
         aspect-ratio: 3/2;
         border-radius: 4px;
     }
+    .fillStar {
+        color: yellow;
+    }
+
 }
 /*
 adult: false
