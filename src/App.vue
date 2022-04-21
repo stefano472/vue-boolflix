@@ -12,6 +12,8 @@
 <script>
 import axios from 'axios'
 import apikey from '@/apikey'
+import "@fontsource/martel-sans"
+import "@fontsource/martel-sans/800.css"
 
 import Header from './components/Header.vue'
 import Main from './components/Main.vue'
@@ -62,6 +64,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -69,7 +72,7 @@ export default {
 }
 #app {
   color: white;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Martel Sans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;

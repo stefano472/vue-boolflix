@@ -59,10 +59,12 @@
       justify-content: end;
       gap: 0.5rem;
       input {
+        text-align: end;
+        font-size: 1rem;
         border: none;
-        border-radius: 3px;
-        padding: 0.2rem;
-        width: 7rem;
+        border-radius: 2px;
+        padding: 0.2rem 0.5rem;
+        width: 8rem;
       }
       button {
         cursor: pointer;

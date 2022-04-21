@@ -1,6 +1,6 @@
 <template>
   <div class="film-container">
-    <FilmCard v-for="series in tvArray" :key="series.id" 
+    <Card v-for="series in tvArray" :key="series.id" 
       :title="series.name"
       :originalTitle="series.original_name" 
       :vote="series.vote_average"
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import FilmCard from './FilmCard.vue'
+import Card from './Card.vue'
 
 export default {
     name: "MainComponent", 
     components: {
-      FilmCard
+      Card
     },
     props: {
       tvArray: Array

@@ -1,20 +1,24 @@
 <template>
     <div class="single-card">
         <div class="poster">
+            <h1 v-if="!posterImg">{{title}}</h1>
             <img :src="imgPoster(posterImg)" alt="">
         </div>
         <div class="description">
             <h2>
-                Titolo: {{title}}
+                <b>Titolo: </b>{{title}}
             </h2>
-            <h4>
-                Lingua originale: <img :src="flagUrl(language)" :alt="'lang: ' + language">
-            </h4>
-            <h4>
-                Titolo originale: {{originalTitle}}
-            </h4>
             <p>
-                <span>Voto: </span>
+                <span>
+                    <b>Lingua originale: </b>{{language.toUpperCase()}} 
+                </span>
+                <img :src="flagUrl(language)" :alt="'lang: ' + language">
+            </p>
+            <p>
+                <b>Titolo originale: </b>{{originalTitle}}
+            </p>
+            <p>
+                <b>Voto: </b>
                 <font-awesome-icon v-for="number in voteTo5(vote)" 
                         :key="'fillStar:' + number"  
                         icon="fa-solid fa-star" 
@@ -26,20 +30,20 @@
                 />     
             </p>
             <p v-if="overview.length > 0">
-                Descrizione: {{overview}}
+                <b>Descrizione: </b>{{overview}}
             </p>
         </div>
     </div>
 </template>
 
 <script>
-import notFound from '@/assets/img_not_found.png'
+import imgNotFound from '@/assets/img_not_found.png'
 
 export default {
-    name: "FilmCard",
+    name: "CardComponent",
     data() {
         return {
-            notFound
+            imgNotFound
         }
     },
     props: {
@@ -57,21 +61,21 @@ export default {
             }
             // altra soluzione se non voglio utilizzare l'import e dichiarare l'img nei data
             // return require('@/assets/img_not_found.png')
-            return this.notFound
+            return this.imgNotFound
         },
         voteTo5(number) {
             return Math.ceil(number / 2)
         },
         flagUrl(countryCode) {
             if (countryCode === "en") {
-                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/US.svg`
+                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/GB.svg`
             } else if (countryCode === "ko") {
                 return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/KR.svg`
             } else if (countryCode === "ja") {
                 return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/JP.svg`
             } else if (countryCode === "zh") {
                 return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/CN.svg`
-            } else if (countryCode === "hi") {
+            } else if (countryCode === "hi" || countryCode === "te") {
                 return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/IN.svg`
             }
             return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/${countryCode.toUpperCase()}.svg`
@@ -82,16 +86,41 @@ export default {
 
 <style scoped lang="scss">
 .single-card {
-    flex-basis: calc(100% / 3 - 1rem * 2 / 3);
-    max-height: 26.82rem;
+    flex-basis: calc(100% / 4 - 1rem * 3 / 4);
+    aspect-ratio: 2/3;
     overflow-y: auto;
-    // padding: 0.5rem;
+
+    /////////////////// custom scrollbar
+    &::-webkit-scrollbar {
+    width: 0.8rem;
+    }
+    &::-webkit-scrollbar-track {
+    margin-block: 0.5rem;
+    background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+    border-radius: 0.8rem;
+    border: 4px solid transparent;
+    box-shadow: inset 0 0 10px 10px #e6e6e6;
+    }
+    /////////////////// end custom scrollbar
+
     display: flex;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    // border: 2px solid #eee;
+    border-radius: 4px;
     .poster{
         display: flex;
         border-radius: inherit;
+        position: relative;
+        h1 {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            color: black;
+            font-size: 1.7rem;
+            line-height: 1.9rem;
+        }
         img {
             width: 100%;
             aspect-ratio: 2/3;
@@ -100,26 +129,56 @@ export default {
     }
     .description {
         display: none;
-        height: fit-content;
-        overflow-y: auto;
-        img {
-            width: 25px;
-            aspect-ratio: 3/2;
-            border-radius: 4px;
+        margin: 0.5rem;
+        color: #bbb;
+        b {
+            color: white;
         }
-        .fillStar {
-            color: yellow;
+        h2 {
+            font-weight: normal;
+            font-size: 1.3rem;
+            line-height: 1.7rem;
+        }
+        p {
+            font-size: 0.9rem;
+            // padding-bottom: 0.5rem;
+            img {
+                width: 25px;
+                aspect-ratio: 3/2;
+                border-radius: 4px;
+            }
+            .fillStar {
+                color: yellow;
+            }
         }
     }
     &:hover {
+        border: 2px solid #eee;
+        background-blend-mode: multiply;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        // animation: flip-vertical-right 0.4s linear both;
         .poster {
             display: none;
         }
         .description{
+            // animation: flip-vertical-right 0.4s linear both;
             display: block;
         }
     }
 }
+
+
+@keyframes flip-vertical-right {
+  0% {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+
 /*
 adult: false
 backdrop_path: "/8BVSqAfU5knNkxyCH4JiANHwjeZ.jpg"
