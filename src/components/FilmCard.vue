@@ -1,29 +1,32 @@
 <template>
-    <div>
+    <div class="single-card">
         <div class="poster">
             <img :src="imgPoster(posterImg)" alt="">
         </div>
         <div class="description">
             <h2>
-                {{title}}
+                Titolo: {{title}}
             </h2>
             <h4>
-                {{originalTitle}}
+                Lingua originale: <img :src="flagUrl(language)" :alt="'lang: ' + language">
+            </h4>
+            <h4>
+                Titolo originale: {{originalTitle}}
             </h4>
             <p>
-                <span>
-                    {{voteTo5(vote)}}
-                    <font-awesome-icon v-for="number in voteTo5(vote)" 
-                            :key="'fillStar:' + number"  
-                            icon="fa-solid fa-star" 
-                            class="fillStar" 
-                    />
-                    <font-awesome-icon v-for="number in (5 - voteTo5(vote))" 
-                            :key="'emptyStar:' + number" 
-                            icon="fa-regular fa-star" 
-                    />
-                </span>
-                <img :src="flagUrl(language)" :alt="'lang: ' + language"> 
+                <span>Voto: </span>
+                <font-awesome-icon v-for="number in voteTo5(vote)" 
+                        :key="'fillStar:' + number"  
+                        icon="fa-solid fa-star" 
+                        class="fillStar" 
+                />
+                <font-awesome-icon v-for="number in (5 - voteTo5(vote))" 
+                        :key="'emptyStar:' + number" 
+                        icon="fa-regular fa-star" 
+                />     
+            </p>
+            <p v-if="overview.length > 0">
+                Descrizione: {{overview}}
             </p>
         </div>
     </div>
@@ -44,7 +47,8 @@ export default {
         originalTitle: String,
         vote: Number,
         language: String,
-        posterImg: String
+        posterImg: String,
+        overview: String
     }, 
     methods: {
         imgPoster(imgUrl) {
@@ -77,22 +81,44 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.poster{
-    img {
-        width: 100%;
-        aspect-ratio: 2/3;
+.single-card {
+    flex-basis: calc(100% / 3 - 1rem * 2 / 3);
+    max-height: 26.82rem;
+    overflow-y: auto;
+    // padding: 0.5rem;
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    .poster{
+        display: flex;
+        border-radius: inherit;
+        img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            border-radius: inherit;
+        }
     }
-}
-.description {
-    img {
-        width: 25px;
-        aspect-ratio: 3/2;
-        border-radius: 4px;
+    .description {
+        display: none;
+        height: fit-content;
+        overflow-y: auto;
+        img {
+            width: 25px;
+            aspect-ratio: 3/2;
+            border-radius: 4px;
+        }
+        .fillStar {
+            color: yellow;
+        }
     }
-    .fillStar {
-        color: yellow;
+    &:hover {
+        .poster {
+            display: none;
+        }
+        .description{
+            display: block;
+        }
     }
-
 }
 /*
 adult: false
