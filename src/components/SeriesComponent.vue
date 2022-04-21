@@ -4,7 +4,8 @@
       :title="series.name"
       :originalTitle="series.original_name" 
       :vote="series.vote_average"
-      :language="series.original_language" 
+      :language="series.original_language"
+      :posterImg="series.poster_path" 
     />
   </div>
 </template>
@@ -19,7 +20,7 @@ export default {
     },
     props: {
       tvArray: Array
-    }
+    }, 
 }
 </script>
 

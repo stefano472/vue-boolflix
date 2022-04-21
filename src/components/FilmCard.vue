@@ -1,34 +1,62 @@
 <template>
-  <div>
-      <h2>
-        {{title}}
-      </h2>
-      <h4>
-          {{originalTitle}}
-      </h4>
-      <p>
-        <span>
-            {{vote}}
-        </span>
-        <img :src="flagUrl(language)" :alt="'lang: ' + language"> 
-      </p>
-
-  </div>
+    <div>
+        <div class="poster">
+            <img :src="imgPoster(posterImg)" alt="">
+        </div>
+        <div class="description">
+            <h2>
+                {{title}}
+            </h2>
+            <h4>
+                {{originalTitle}}
+            </h4>
+            <p>
+                <span v-if="vote>0">
+                    {{vote}}
+                </span>
+                <img :src="flagUrl(language)" :alt="'lang: ' + language"> 
+            </p>
+        </div>
+    </div>
 </template>
 
 <script>
+import notFound from '@/assets/img_not_found.png'
+
 export default {
     name: "FilmCard",
+    data() {
+        return {
+            notFound
+        }
+    },
     props: {
         title: String,
         originalTitle: String,
         vote: Number,
-        language: String
+        language: String,
+        posterImg: String
     }, 
     methods: {
+        imgPoster(imgUrl) {
+            if (imgUrl) {
+                return 'https://image.tmdb.org/t/p/original' + imgUrl
+            }
+            // altra soluzione se non voglio utilizzare l'import e dichiarare l'img nei data
+            // return require('@/assets/img_not_found.png')
+            return this.notFound
+        },
         flagUrl(countryCode) {
             if (countryCode === "en") {
                 return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/US.svg`
+            } else if (countryCode === "ko") {
+                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/KR.svg`
+            } else if (countryCode === "ja") {
+                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/JP.svg`
+            } else if (countryCode === "zh") {
+                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/CN.svg`
+            } else if (countryCode === "hi") {
+                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/IN.svg`
             }
             return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/${countryCode.toUpperCase()}.svg`
         }
@@ -37,10 +65,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-img {
-    width: 25px;
-    aspect-ratio: 3/2;
-    border-radius: 4px;
+.poster{
+    img {
+        width: 100%;
+        aspect-ratio: 2/3;
+    }
+}
+.description {
+    img {
+        width: 25px;
+        aspect-ratio: 3/2;
+        border-radius: 4px;
+    }
 }
 /*
 adult: false
@@ -57,5 +93,19 @@ video: false
 vote_average: 7.6
 vote_count: 19262
 */
-
+/*
+backdrop_path: "/mYKYwihv940xGyDt2XckkBryNnP.jpg"
+first_air_date: "1994-09-24"
+genre_ids: Array(3)
+id: 2901
+name: "Fantastic four"
+origin_country: Array(1)
+original_language: "en"
+original_name: "Fantastic Four"
+overview: "I Fantastici Quattro (Fantastic Four) è una serie televisiva a cartoni animati prodotta dai Marvel Studios andata in onda tra il 1994 e il 1996. La serie è tratta dai fumetti omonimi della Marvel Comics ed è composta da 2 stagioni, per un totale di 26 episodi di 22 minuti l'uno. Nella serie fanno la comparsa numerosi eroi della scuderia Marvel compresi Daredevil, Ghost Rider, Namor, Thor, Hulk, Silver Surfer, Iron Man e Pantera Nera."
+popularity: 13.384
+poster_path: "/xqqZjLBUEOVAsXneUwITCuas9jL.jpg"
+vote_average: 6.7
+vote_count: 43
+*/
 </style>

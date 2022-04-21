@@ -54,6 +54,7 @@ export default {
             if (this.userQuery.length>0) {
               this.callMovies()
               this.callTvSeries()
+              console.log(this.myTvSelection)
             }
         }
   }

@@ -5,6 +5,7 @@
       :originalTitle="film.original_title" 
       :vote="film.vote_average"
       :language="film.original_language" 
+      :posterImg="film.poster_path"
     />
   </div>
 </template>
