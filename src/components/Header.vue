@@ -8,7 +8,7 @@
     <ul class="selection">
       <li>Home</li>
       <li>Film</li>
-      <li>SerieTv</li>
+      <li>Serie Tv</li>
     </ul>
     <div class="search">
       <input type="text" placeholder="search"  v-model="inputSearch" @keyup.enter="getInput">
@@ -38,9 +38,6 @@
 
 <style scoped lang="scss">
   header {
-    z-index: 10;
-    position: fixed;
-    top: 0;
     height: 5rem;
     padding: 1rem 1.5rem;
     width: 100%;

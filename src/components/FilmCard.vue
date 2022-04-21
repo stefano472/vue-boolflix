@@ -7,7 +7,10 @@
           {{originalTitle}}
       </h4>
       <p>
-          {{vote}} {{language}}
+        <span>
+            {{vote}}
+        </span>
+        <img :src="flagUrl(language)" :alt="'lang: ' + language"> 
       </p>
 
   </div>
@@ -21,11 +24,24 @@ export default {
         originalTitle: String,
         vote: Number,
         language: String
+    }, 
+    methods: {
+        flagUrl(countryCode) {
+            if (countryCode === "en") {
+                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/US.svg`
+            }
+            return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/${countryCode.toUpperCase()}.svg`
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
+img {
+    width: 25px;
+    aspect-ratio: 3/2;
+    border-radius: 4px;
+}
 /*
 adult: false
 backdrop_path: "/8BVSqAfU5knNkxyCH4JiANHwjeZ.jpg"
