@@ -45,20 +45,28 @@ export default {
             .catch((error) => console.log(error))
     },
     callMovies() {
-      this.callAxios('movie').then((response) => this.myMovieSelection = response.data.results)
+      this.callAxios('movie').then((response) => {
+        if(response.status === 200) {
+          this.myMovieSelection = response.data.results
+        }
+      })
     },
     callTvSeries() {
-      this.callAxios('tv').then((response) => this.myTvSelection = response.data.results)
+      this.callAxios('tv').then((response) => {
+        if(response.status === 200) {
+          this.myTvSelection = response.data.results
+        }
+      })
     },
     getUserInput(input) {
-            this.userQuery = input.trim(),
-            console.log(this.userQuery)
-            if (this.userQuery.length>0) {
-              this.callMovies()
-              this.callTvSeries()
-              console.log(this.myTvSelection)
-            }
-        }
+      this.userQuery = input.trim(),
+      console.log(this.userQuery)
+      if (this.userQuery.length>0) {
+        this.callMovies()
+        this.callTvSeries()
+        console.log(this.myTvSelection)
+      }
+    }
   }
 }
 </script>

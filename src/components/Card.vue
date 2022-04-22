@@ -6,19 +6,19 @@
         </div>
         <div class="description">
             <h2>
-                <b>Titolo: </b>{{title}}
+                {{title}}
             </h2>
-            <p>
+            <p class="secondary-description">
                 <span>
-                    <b>Lingua originale: </b>{{language.toUpperCase()}} 
+                    Lingua originale: {{language.toUpperCase()}} 
                 </span>
                 <img :src="flagUrl(language)" :alt="'lang: ' + language">
             </p>
-            <p>
-                <b>Titolo originale: </b>{{originalTitle}}
+            <p class="secondary-description">
+                Titolo originale: {{originalTitle}}
             </p>
             <p>
-                <b>Voto: </b>
+                <b>Rating: </b>
                 <font-awesome-icon v-for="number in voteTo5(vote)" 
                         :key="'fillStar:' + number"  
                         icon="fa-solid fa-star" 
@@ -29,8 +29,8 @@
                         icon="fa-regular fa-star" 
                 />     
             </p>
-            <p v-if="overview.length > 0">
-                <b>Descrizione: </b>{{overview}}
+            <p v-if="overview.length > 0" class="secondary-description">
+                {{overview}}
             </p>
         </div>
     </div>
@@ -66,19 +66,38 @@ export default {
         voteTo5(number) {
             return Math.ceil(number / 2)
         },
+        // function to create flag url can be done with if else or switch
+        // flagUrl(countryCode) {
+        //     if (countryCode === "en") {
+        //         return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/GB.svg`
+        //     } else if (countryCode === "ko") {
+        //         return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/KR.svg`
+        //     } else if (countryCode === "ja") {
+        //         return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/JP.svg`
+        //     } else if (countryCode === "zh") {
+        //         return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/CN.svg`
+        //     } else if (countryCode === "hi" || countryCode === "te") {
+        //         return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/IN.svg`
+        //     }
+        //     return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/${countryCode.toUpperCase()}.svg`
+        // }
         flagUrl(countryCode) {
-            if (countryCode === "en") {
-                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/GB.svg`
-            } else if (countryCode === "ko") {
-                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/KR.svg`
-            } else if (countryCode === "ja") {
-                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/JP.svg`
-            } else if (countryCode === "zh") {
-                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/CN.svg`
-            } else if (countryCode === "hi" || countryCode === "te") {
-                return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/IN.svg`
+            switch(countryCode) {
+                case 'en':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/US.svg`;
+                case 'ko':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/KR.svg`;
+                case 'ja':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/JP.svg`;
+                case 'zh':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/CN.svg`;
+                case 'hi':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/IN.svg`;
+                case 'te':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/IN.svg`;
+                default:
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/${countryCode.toUpperCase()}.svg`;
             }
-            return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/${countryCode.toUpperCase()}.svg`
         }
     }
 }
@@ -91,22 +110,21 @@ export default {
     overflow-y: auto;
 
     /////////////////// custom scrollbar
-    &::-webkit-scrollbar {
-    width: 0.8rem;
-    }
-    &::-webkit-scrollbar-track {
-    margin-block: 0.5rem;
-    background-color: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-    border-radius: 0.8rem;
-    border: 4px solid transparent;
-    box-shadow: inset 0 0 10px 10px #e6e6e6;
-    }
+        &::-webkit-scrollbar {
+        width: 0.8rem;
+        }
+        &::-webkit-scrollbar-track {
+        margin-block: 0.5rem;
+        background-color: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+        border-radius: 0.8rem;
+        border: 4px solid transparent;
+        box-shadow: inset 0 0 10px 10px #e6e6e6;
+        }
     /////////////////// end custom scrollbar
 
     display: flex;
-    // border: 2px solid #eee;
     border-radius: 4px;
     .poster{
         display: flex;
@@ -130,22 +148,22 @@ export default {
     .description {
         display: none;
         margin: 0.5rem;
-        color: #bbb;
-        b {
-            color: white;
-        }
         h2 {
-            font-weight: normal;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             line-height: 1.7rem;
         }
+        .secondary-description {
+            color: #a1a1a1;
+        }
         p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             // padding-bottom: 0.5rem;
             img {
                 width: 25px;
                 aspect-ratio: 3/2;
                 border-radius: 4px;
+                margin-left: 0.2rem;
+                margin-bottom: -0.2rem;
             }
             .fillStar {
                 color: yellow;
@@ -167,19 +185,19 @@ export default {
     }
 }
 
+// test card animation
+// @keyframes flip-vertical-right {
+//   0% {
+//     -webkit-transform: rotateY(0);
+//             transform: rotateY(0);
+//   }
+//   100% {
+//     -webkit-transform: rotateY(180deg);
+//             transform: rotateY(180deg);
+//   }
+// }
 
-@keyframes flip-vertical-right {
-  0% {
-    -webkit-transform: rotateY(0);
-            transform: rotateY(0);
-  }
-  100% {
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-  }
-}
-
-/*
+/* tv and movie info
 adult: false
 backdrop_path: "/8BVSqAfU5knNkxyCH4JiANHwjeZ.jpg"
 id: 76341

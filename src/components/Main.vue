@@ -4,11 +4,11 @@
       <h2 v-if="filmArray.length > 0">
         Film
       </h2>
-      <FilmComponent :filmArray='filmArray' />
+      <FilmComponent v-if="filmArray.length > 0" :filmArray='filmArray' />
       <h2 v-if="tvArray.length > 0">
         Serie Tv
       </h2>
-      <SeriesComponent :tvArray='tvArray' />
+      <SeriesComponent v-if="tvArray.length > 0" :tvArray='tvArray' />
     </div>
   </main>
 </template>
@@ -32,31 +32,34 @@ export default {
 
 <style scoped lang="scss">
   main  {
-    height: calc(100vh - 5rem);
+    height: 89vh;
     overflow-y: auto;
-/////////////////// custom scrollbar
-    &::-webkit-scrollbar {
-      width: 1rem;
-    }
-    &::-webkit-scrollbar-track {
-      margin-block: 0.5rem;
-      background-color: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 1rem;
-      border: 4px solid transparent;
-      box-shadow: inset 0 0 10px 10px #e6e6e6;
-    }
-/////////////////// end custom scrollbar
+    /////////////////// custom scrollbar
+      &::-webkit-scrollbar {
+        width: 1rem;
+      }
+      &::-webkit-scrollbar-track {
+        margin-block: 0.5rem;
+        background-color: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        border: 4px solid transparent;
+        box-shadow: inset 0 0 10px 10px #e6e6e6;
+      }
+    /////////////////// end custom scrollbar
     .container {
-      // margin: 1rem;
+
       width: min((100% - 3rem), 1200px);
       margin-inline: auto;
       h2 {
-        margin-top: 3rem;
+        margin-top: 1.75rem;
         text-transform: uppercase;
         font-size: 1.8rem;
         line-height: 2.5rem;
+      }
+      div {
+        margin-bottom: 3rem;
       }
     }
   }

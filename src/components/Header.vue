@@ -38,8 +38,8 @@
 
 <style scoped lang="scss">
   header {
-    height: 5rem;
-    padding: 1rem 1.5rem;
+    height: 11vh;
+    padding: 1.25rem 3.75rem;
     width: 100%;
     display: flex;
     align-items: center;
@@ -49,14 +49,15 @@
       height: 100%;
     }
     .selection {
+      flex-grow: 1;
       list-style: none;
       display: flex;
+      justify-content: end;
       gap: 2rem;
     }
     .search {
-      flex-grow: 1;
+      // flex-grow: 1;
       display: flex;
-      justify-content: end;
       gap: 0.5rem;
       input {
         text-align: end;

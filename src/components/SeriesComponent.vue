@@ -30,8 +30,5 @@ export default {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    // & > * {
-    //   flex-basis: calc(100% / 3 - 1rem * 2 / 3);
-    // }
   }
 </style>
