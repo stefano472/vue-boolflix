@@ -31,7 +31,8 @@ export default {
       apiKey: apikey.string,
       userQuery: '',
       myMovieSelection: [],
-      myTvSelection: [],
+      myTvSelection: []
+      // myCast: []
     }
   },
   methods: {
@@ -41,7 +42,7 @@ export default {
         api_key: this.apiKey,
         language: 'it-IT'
       }
-      return axios .get(this.apiUrl + axiosToCall, {params})
+      return axios.get(this.apiUrl + axiosToCall, {params})
             .catch((error) => console.log(error))
     },
     callMovies() {
@@ -58,13 +59,25 @@ export default {
         }
       })
     },
+    callCast() {
+      const params = {
+        // credit_id: '1396',
+        api_key: this.apiKey,
+      }
+      axios.get('https://api.themoviedb.org/3/tv/1396/credits', {params})
+            .then((response) => console.table(response.data.cast[0].name))
+            .catch((error) => console.log(error))
+    },
     getUserInput(input) {
       this.userQuery = input.trim(),
       console.log(this.userQuery)
       if (this.userQuery.length>0) {
         this.callMovies()
         this.callTvSeries()
-        console.log(this.myTvSelection)
+        this.callCast()
+
+        // console.log(this.myCast)
+        // console.log(this.myTvSelection)
       }
     }
   }

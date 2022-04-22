@@ -7,6 +7,7 @@
       :language="series.original_language"
       :posterImg="series.poster_path" 
       :overview="series.overview"
+      :id="series.id"
     />
   </div>
 </template>

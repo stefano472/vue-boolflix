@@ -37,7 +37,10 @@
 </template>
 
 <script>
+// import axios from 'axios'
+
 import imgNotFound from '@/assets/img_not_found.png'
+
 
 export default {
     name: "CardComponent",
@@ -52,8 +55,18 @@ export default {
         vote: Number,
         language: String,
         posterImg: String,
-        overview: String
+        overview: String,
+        // id: String
     }, 
+    // mounted() {
+    //     const params = {
+    //     // credit_id: this.id,
+    //     api_key: this.apiKey,
+    //   }
+    //   axios.get(`'https://api.themoviedb.org/3/tv/'${this.id}'/credits'`, {params})
+    //         .then((response) => console.table(response.data.cast.name))
+    //         .catch((error) => console.log(error))
+    // },
     methods: {
         imgPoster(imgUrl) {
             if (imgUrl) {
@@ -85,6 +98,10 @@ export default {
             switch(countryCode) {
                 case 'en':
                     return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/US.svg`;
+                case 'cs':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/CZ.svg`;
+                case 'da':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/DK.svg`;
                 case 'ko':
                     return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/KR.svg`;
                 case 'ja':

@@ -7,6 +7,7 @@
       :language="film.original_language" 
       :posterImg="film.poster_path"
       :overview="film.overview"
+      :id="film.id"
     />
   </div>
 </template>
