@@ -32,18 +32,22 @@
                         icon="fa-regular fa-star" 
                 />     
             </p>
-            <ul v-if="genres.length>0">
-                <li>Genre:</li>
-                <li v-for="genre in genres" :key="genre" class="genre">
-                    {{numberToGenre(genre)}}
-                </li>
-            </ul>
-            <ul v-if="myCast.length>0">
-                <li>Cast:</li>
-                <li v-for="actor in myCast" :key="actor.id" class="actor">
-                    {{actor.name}}
-                </li>
-            </ul>
+            <p class="genres" v-if="genres.length>0">
+                <b>Genre:</b>
+                <ul>
+                    <li v-for="genre in genres" :key="genre" class="genre">
+                        {{numberToGenre(genre)}}
+                    </li>
+                </ul>
+            </p>
+            <p class="cast" v-if="myCast.length>0">
+                <b>Cast:</b>
+                <ul>
+                    <li v-for="actor in myCast" :key="actor.id" class="actor">
+                        {{actor.name}}
+                    </li>
+                </ul>
+            </p>
             <p v-if="overview.length > 0" class="secondary-description">
                 {{overview}}
             </p>
@@ -230,15 +234,22 @@ export default {
         }
         ul {
             font-size: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            word-wrap: break-word;
             list-style: none;
-            font-weight: 800;
             margin-bottom: 0.3rem;
-            .actor,
-            .genre {
-                // color: #a1a1a1; 
-                font-weight: normal; 
-                margin-inline-start: 1rem;
+            margin-inline-start: 1rem;
+            .genre::after,
+            .actor::after{
+                content: ','; 
+                margin-right: 0.3rem;
             }
+            .genre:last-child::after,
+            .actor:last-child::after{
+                content: '';
+            }
+
         }
     }
     &:hover {
