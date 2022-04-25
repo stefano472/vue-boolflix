@@ -5,22 +5,22 @@
         <h2>
           Film
         </h2>
-        <select name="" id="">
-          <option value="">All</option>
+        <select name="" id="" v-model="movieInput">
+          <option value="all">All</option>
           <option v-for="genre in programGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
         </select>
       </div>
-      <FilmComponent v-if="filmArray.length > 0" :filmArray='filmArray' :arrayTotGenres="programGenres" />
+      <FilmComponent v-if="filmArray.length > 0" :filmArray='filteredFilmArray' :arrayTotGenres="programGenres" />
       <div class="title" v-if="tvArray.length > 0">
         <h2>
           Serie Tv
         </h2>
-        <select name="" id="">
-          <option value="">All</option>
+        <select name="" id="" v-model="seriesInput">
+          <option value="all">All</option>
           <option v-for="genre in programGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
         </select>
       </div>
-      <SeriesComponent v-if="tvArray.length > 0" :tvArray='tvArray' :arrayTotGenres="programGenres" />
+      <SeriesComponent v-if="tvArray.length > 0" :tvArray='fileredSeriesArray' :arrayTotGenres="programGenres" />
     </div>
   </main>
 </template>
@@ -35,10 +35,31 @@ export default {
       FilmComponent,
       SeriesComponent
     },
+    data() {
+      return {
+        movieInput: 'all',
+        seriesInput: 'all'
+        // filteredMovieArray: []
+      }
+    },
     props: {
       filmArray: Array,
       tvArray: Array,
       programGenres: Array
+    }, 
+    computed: {
+      filteredFilmArray(){
+        if (this.movieInput === 'all'){
+          return this.filmArray
+        }
+        return this.filmArray.filter(film => film.genre_ids.includes(this.movieInput)) 
+      },
+      fileredSeriesArray(){
+        if (this.seriesInput === 'all'){
+          return this.tvArray
+        }
+        return this.tvArray.filter(tv => tv.genre_ids.includes(this.seriesInput)) 
+      }
     }
 }
 </script>
@@ -73,11 +94,16 @@ export default {
         gap: 1rem;
         align-items: baseline;
         margin: 0;
+        margin-top: 1.75rem;
         h2 {
-          margin-top: 1.75rem;
+          padding-top: 0.4rem;
           text-transform: uppercase;
           font-size: 1.8rem;
           line-height: 2.5rem;
+        }
+        select {
+          height: fit-content;
+          align-self: center;
         }
       }
     }
