@@ -8,6 +8,7 @@
       :posterImg="film.poster_path"
       :overview="film.overview"
       :id="film.id"
+      :programType="film.programType"
     />
   </div>
 </template>

@@ -49,6 +49,7 @@ export default {
       this.callAxios('movie').then((response) => {
         if(response.status === 200) {
           this.myMovieSelection = response.data.results
+          this.myMovieSelection.forEach(object => object.programType= "movie")
         }
       })
     },
@@ -56,17 +57,9 @@ export default {
       this.callAxios('tv').then((response) => {
         if(response.status === 200) {
           this.myTvSelection = response.data.results
+          this.myTvSelection.forEach(object => object.programType= "tv")
         }
       })
-    },
-    callCast() {
-      const params = {
-        // credit_id: '1396',
-        api_key: this.apiKey,
-      }
-      axios.get('https://api.themoviedb.org/3/tv/1396/credits', {params})
-            .then((response) => console.table(response.data.cast[0].name))
-            .catch((error) => console.log(error))
     },
     getUserInput(input) {
       this.userQuery = input.trim(),
@@ -74,10 +67,10 @@ export default {
       if (this.userQuery.length>0) {
         this.callMovies()
         this.callTvSeries()
-        this.callCast()
+        // this.callCast()
 
         // console.log(this.myCast)
-        // console.log(this.myTvSelection)
+        console.log(this.myTvSelection)
       }
     }
   }

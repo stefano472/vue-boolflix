@@ -32,12 +32,19 @@
             <p v-if="overview.length > 0" class="secondary-description">
                 {{overview}}
             </p>
+            <ul v-if="myCast.length>0">
+                <li>Cast:</li>
+                <li v-for="actor in myCast" :key="actor.id" class="actor">
+                    {{actor.name}}
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+import apikey from '@/apikey'
 
 import imgNotFound from '@/assets/img_not_found.png'
 
@@ -46,7 +53,10 @@ export default {
     name: "CardComponent",
     data() {
         return {
-            imgNotFound
+            imgNotFound,
+            apiKey: apikey.string,      
+            myCast: []
+
         }
     },
     props: {
@@ -56,17 +66,17 @@ export default {
         language: String,
         posterImg: String,
         overview: String,
-        // id: String
+        id: Number,
+        programType: String
     }, 
-    // mounted() {
-    //     const params = {
-    //     // credit_id: this.id,
-    //     api_key: this.apiKey,
-    //   }
-    //   axios.get(`'https://api.themoviedb.org/3/tv/'${this.id}'/credits'`, {params})
-    //         .then((response) => console.table(response.data.cast.name))
-    //         .catch((error) => console.log(error))
-    // },
+    created() {
+        const params = {
+        api_key: this.apiKey,
+      }
+      axios.get(`https://api.themoviedb.org/3/${this.programType}/${this.id}/credits`, {params})
+            .then((response) => this.myCast = response.data.cast.slice(0,5))
+            .catch((error) => console.log(error))
+    },
     methods: {
         imgPoster(imgUrl) {
             if (imgUrl) {
@@ -102,6 +112,8 @@ export default {
                     return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/CZ.svg`;
                 case 'da':
                     return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/DK.svg`;
+                case 'el':
+                    return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/GR.svg`;
                 case 'ko':
                     return `https://raw.githubusercontent.com/emcrisostomo/flags/91286fe015b4957b51bc470eca4b5fd6f5ac90da/svg/KR.svg`;
                 case 'ja':
@@ -184,6 +196,16 @@ export default {
             }
             .fillStar {
                 color: yellow;
+            }
+        }
+        ul {
+            font-size: 0.8rem;
+            list-style: none;
+            font-weight: 800;
+            .actor {
+                // color: #a1a1a1; 
+                font-weight: normal; 
+                margin-inline-start: 1rem;
             }
         }
     }

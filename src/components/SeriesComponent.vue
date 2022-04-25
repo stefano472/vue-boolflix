@@ -8,6 +8,7 @@
       :posterImg="series.poster_path" 
       :overview="series.overview"
       :id="series.id"
+      :programType="series.programType"
     />
   </div>
 </template>
@@ -22,7 +23,7 @@ export default {
     },
     props: {
       tvArray: Array
-    }, 
+    }
 }
 </script>
 
