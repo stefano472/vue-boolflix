@@ -1,14 +1,26 @@
 <template>
   <main>
     <div class="container">
-      <h2 v-if="filmArray.length > 0">
-        Film
-      </h2>
-      <FilmComponent v-if="filmArray.length > 0" :filmArray='filmArray' />
-      <h2 v-if="tvArray.length > 0">
-        Serie Tv
-      </h2>
-      <SeriesComponent v-if="tvArray.length > 0" :tvArray='tvArray' />
+      <div class="title" v-if="filmArray.length > 0">
+        <h2>
+          Film
+        </h2>
+        <select name="" id="">
+          <option value="">All</option>
+          <option v-for="genre in programGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
+        </select>
+      </div>
+      <FilmComponent v-if="filmArray.length > 0" :filmArray='filmArray' :arrayTotGenres="programGenres" />
+      <div class="title" v-if="tvArray.length > 0">
+        <h2>
+          Serie Tv
+        </h2>
+        <select name="" id="">
+          <option value="">All</option>
+          <option v-for="genre in programGenres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
+        </select>
+      </div>
+      <SeriesComponent v-if="tvArray.length > 0" :tvArray='tvArray' :arrayTotGenres="programGenres" />
     </div>
   </main>
 </template>
@@ -25,7 +37,8 @@ export default {
     },
     props: {
       filmArray: Array,
-      tvArray: Array
+      tvArray: Array,
+      programGenres: Array
     }
 }
 </script>
@@ -52,14 +65,20 @@ export default {
 
       width: min((100% - 3rem), 1200px);
       margin-inline: auto;
-      h2 {
-        margin-top: 1.75rem;
-        text-transform: uppercase;
-        font-size: 1.8rem;
-        line-height: 2.5rem;
-      }
       div {
         margin-bottom: 3rem;
+      }
+      .title {
+        display: flex;
+        gap: 1rem;
+        align-items: baseline;
+        margin: 0;
+        h2 {
+          margin-top: 1.75rem;
+          text-transform: uppercase;
+          font-size: 1.8rem;
+          line-height: 2.5rem;
+        }
       }
     }
   }

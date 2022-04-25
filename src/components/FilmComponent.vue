@@ -9,6 +9,8 @@
       :overview="film.overview"
       :id="film.id"
       :programType="film.programType"
+      :genres="film.genre_ids"
+      :arrayTotGenres="arrayTotGenres"
     />
   </div>
 </template>
@@ -22,7 +24,8 @@ export default {
       Card
     },
     props: {
-      filmArray: Array
+      filmArray: Array,
+      arrayTotGenres: Array
     }
 }
 </script>

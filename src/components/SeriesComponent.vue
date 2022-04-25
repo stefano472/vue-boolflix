@@ -9,6 +9,8 @@
       :overview="series.overview"
       :id="series.id"
       :programType="series.programType"
+      :genres="series.genre_ids"
+      :arrayTotGenres="arrayTotGenres"
     />
   </div>
 </template>
@@ -22,7 +24,8 @@ export default {
       Card
     },
     props: {
-      tvArray: Array
+      tvArray: Array,
+      arrayTotGenres: Array
     }
 }
 </script>

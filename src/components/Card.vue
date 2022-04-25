@@ -8,6 +8,9 @@
             <h2>
                 {{title}}
             </h2>
+            <!-- <p class="secondary-description">
+                Genere: {{genres}}
+            </p> -->
             <p class="secondary-description">
                 <span>
                     Lingua originale: {{language.toUpperCase()}} 
@@ -29,15 +32,21 @@
                         icon="fa-regular fa-star" 
                 />     
             </p>
-            <p v-if="overview.length > 0" class="secondary-description">
-                {{overview}}
-            </p>
+            <ul v-if="genres.length>0">
+                <li>Genre:</li>
+                <li v-for="genre in genres" :key="genre" class="genre">
+                    {{numberToGenre(genre)}}
+                </li>
+            </ul>
             <ul v-if="myCast.length>0">
                 <li>Cast:</li>
                 <li v-for="actor in myCast" :key="actor.id" class="actor">
                     {{actor.name}}
                 </li>
             </ul>
+            <p v-if="overview.length > 0" class="secondary-description">
+                {{overview}}
+            </p>
         </div>
     </div>
 </template>
@@ -67,17 +76,38 @@ export default {
         posterImg: String,
         overview: String,
         id: Number,
-        programType: String
+        programType: String,
+        genres: Array,
+        arrayTotGenres: Array
     }, 
     created() {
         const params = {
-        api_key: this.apiKey,
-      }
-      axios.get(`https://api.themoviedb.org/3/${this.programType}/${this.id}/credits`, {params})
+            api_key: this.apiKey,
+        };
+        axios.get(`https://api.themoviedb.org/3/${this.programType}/${this.id}/credits`, {params})
             .then((response) => this.myCast = response.data.cast.slice(0,5))
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(error));
+
     },
+    // computed: {
+    //     numberToGenre(genre) {
+    //         let myGenre = '';
+    //         this.arrayTotGenres.forEach(genreLoop => {
+    //             if(genreLoop.id===genre) {
+    //                 myGenre = genreLoop.name
+    //             }})
+    //         return myGenre 
+    //     }
+    // },
     methods: {
+        numberToGenre(genre) {
+            let myGenre = '';
+            this.arrayTotGenres.forEach(genreLoop => {
+                if(genreLoop.id===genre) {
+                    myGenre = genreLoop.name
+                }})
+            return myGenre 
+        },
         imgPoster(imgUrl) {
             if (imgUrl) {
                 return 'https://image.tmdb.org/t/p/original' + imgUrl
@@ -202,7 +232,9 @@ export default {
             font-size: 0.8rem;
             list-style: none;
             font-weight: 800;
-            .actor {
+            margin-bottom: 0.3rem;
+            .actor,
+            .genre {
                 // color: #a1a1a1; 
                 font-weight: normal; 
                 margin-inline-start: 1rem;
