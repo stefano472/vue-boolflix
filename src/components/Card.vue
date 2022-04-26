@@ -22,12 +22,12 @@
             </p>
             <p>
                 <b>Rating: </b>
-                <font-awesome-icon v-for="number in voteTo5(vote)" 
+                <font-awesome-icon v-for="number in voteTo5" 
                         :key="'fillStar:' + number"  
                         icon="fa-solid fa-star" 
                         class="fillStar" 
                 />
-                <font-awesome-icon v-for="number in (5 - voteTo5(vote))" 
+                <font-awesome-icon v-for="number in (5 - voteTo5)" 
                         :key="'emptyStar:' + number" 
                         icon="fa-regular fa-star" 
                 />     
@@ -93,24 +93,30 @@ export default {
             .catch((error) => console.log(error));
 
     },
-    // computed: {
-    //     numberToGenre(genre) {
-    //         let myGenre = '';
-    //         this.arrayTotGenres.forEach(genreLoop => {
-    //             if(genreLoop.id===genre) {
-    //                 myGenre = genreLoop.name
-    //             }})
-    //         return myGenre 
-    //     }
-    // },
+    computed: {
+        voteTo5() {
+            return Math.round(this.vote / 2)
+        },
+        // numberToGenre() {
+        //     genres.forEach(genre => )
+        //     let myGenre = '';
+        //     this.arrayTotGenres.forEach(genreLoop => {
+        //         if(genreLoop.id===genre) {
+        //             myGenre = genreLoop.name
+        //         }})
+        //     return myGenre 
+        // }
+    },
     methods: {
         numberToGenre(genre) {
-            let myGenre = '';
-            this.arrayTotGenres.forEach(genreLoop => {
-                if(genreLoop.id===genre) {
-                    myGenre = genreLoop.name
-                }})
-            return myGenre 
+            // let myGenre = '';
+            const found = this.arrayTotGenres.find(genreLoop => {
+                return genreLoop.id===genre});
+            return found.name
+            //     if(genreLoop.id===genre) {
+            //         myGenre = genreLoop.name
+            //     }})
+            // return myGenre 
         },
         imgPoster(imgUrl) {
             if (imgUrl) {
@@ -120,9 +126,9 @@ export default {
             // return require('@/assets/img_not_found.png')
             return this.imgNotFound
         },
-        voteTo5(number) {
-            return Math.ceil(number / 2)
-        },
+        // voteTo5(number) {
+        //     return Math.round(number / 2)
+        // },
         // function to create flag url can be done with if else or switch
         // flagUrl(countryCode) {
         //     if (countryCode === "en") {
